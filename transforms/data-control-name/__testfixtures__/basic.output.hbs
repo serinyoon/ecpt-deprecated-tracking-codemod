@@ -1,14 +1,14 @@
 <LinkTo
-	@route="index"
-	@model={{relatedArticle.permalink}}
-	class="reader-related-content__link" data-test-reader-related-content="true" {{ember-cli-pemberly-tracking$track-interaction "read_related"}}
+	@route="foo.index"
+	@model={{some.link}}
+	class="some-link__link" data-some-link="true" {{ember-cli-pemberly-tracking$track-interaction "some-link-control-name"}}
 >
 </LinkTo>
 
 <LinkTo
-	@route="index"
-	@model={{relatedArticle.permalink}}
-	class="reader-related-content__link" data-test-reader-related-content="true" {{ember-cli-pemberly-tracking$track-interaction "read_related" controlTrackingId="read_related-id"}}
+	@route="foo.index"
+	@model={{some.link}}
+	class="some-link__link" data-some-link="true" {{ember-cli-pemberly-tracking$track-interaction "some-link-control-name" controlTrackingId="some-link-control-name-id"}}
 >
 </LinkTo>
 
