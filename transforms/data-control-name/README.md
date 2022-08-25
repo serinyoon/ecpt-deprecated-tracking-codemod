@@ -1,6 +1,5 @@
 # data-control-name
 
-
 ## Usage
 
 ```
@@ -13,6 +12,7 @@ ecpt-deprecated-tracking-codemod data-control-name path/of/files/ or/some**/*glo
 ```
 
 ## Local Usage
+
 ```
 node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 ```
@@ -21,9 +21,10 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 
 <!--FIXTURES_TOC_START-->
 * [basic](#basic)
+* [foo](#foo)
 <!--FIXTURES_TOC_END-->
 
-<!--FIXTURES_CONTENT_START-->
+## <!--FIXTURES_CONTENT_START-->
 ---
 <a id="basic">**basic**</a>
 
@@ -52,6 +53,15 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 	@href={{this.contentTrackedUrl}}
 	target="_blank"
 	data-control-name={{@controlName}}
+	data-control-id="foo-id"
+>
+</AppAwareLink$AppAwareLink>
+
+<AppAwareLink$AppAwareLink
+	@href={{this.contentTrackedUrl}}
+	target="_blank"
+	data-control-name={{@controlName}}
+	data-control-id={{@controlId}}
 >
 </AppAwareLink$AppAwareLink>
 ```
@@ -74,8 +84,26 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 
 <AppAwareLink$AppAwareLink
 	@href={{this.contentTrackedUrl}}
-	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName}}
+	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId="foo-id"}}
 >
 </AppAwareLink$AppAwareLink>
+
+<AppAwareLink$AppAwareLink
+	@href={{this.contentTrackedUrl}}
+	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId=@controlId}}
+>
+</AppAwareLink$AppAwareLink>
+```
+---
+<a id="foo">**foo**</a>
+
+**Input** (<small>[foo.input.hbs](transforms/data-control-name/__testfixtures__/foo.input.hbs)</small>):
+```hbs
+
+```
+
+**Output** (<small>[foo.output.hbs](transforms/data-control-name/__testfixtures__/foo.output.hbs)</small>):
+```hbs
+
 ```
 <!--FIXTURES_CONTENT_END-->

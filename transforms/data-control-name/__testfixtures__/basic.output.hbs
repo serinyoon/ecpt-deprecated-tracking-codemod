@@ -14,6 +14,12 @@
 
 <AppAwareLink$AppAwareLink
 	@href={{this.contentTrackedUrl}}
-	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName}}
+	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId="foo-id"}}
+>
+</AppAwareLink$AppAwareLink>
+
+<AppAwareLink$AppAwareLink
+	@href={{this.contentTrackedUrl}}
+	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId=@controlId}}
 >
 </AppAwareLink$AppAwareLink>

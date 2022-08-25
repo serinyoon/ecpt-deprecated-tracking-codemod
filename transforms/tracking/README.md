@@ -1,6 +1,5 @@
 # tracking
 
-
 ## Usage
 
 ```
@@ -13,6 +12,7 @@ ecpt-deprecated-tracking-codemod tracking path/of/files/ or/some**/*glob.hbs
 ```
 
 ## Local Usage
+
 ```
 node ./bin/cli.js tracking path/of/files/ or/some**/*glob.hbs
 ```
@@ -23,7 +23,7 @@ node ./bin/cli.js tracking path/of/files/ or/some**/*glob.hbs
 * [basic](#basic)
 <!--FIXTURES_TOC_END-->
 
-<!--FIXTURES_CONTENT_START-->
+## <!--FIXTURES_CONTENT_START-->
 ---
 <a id="basic">**basic**</a>
 

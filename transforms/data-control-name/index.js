@@ -37,13 +37,21 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
           b.path('ember-cli-pemberly-tracking$track-interaction'),
           [controlName]
         );
-        if (dataControlId) {
-          modifier.hash = b.hash([
-            b.pair('controlTrackingId', b.string(dataControlId.value.chars)),
-          ]);
-        }
 
-        debugger;
+        if (dataControlId) {
+          let controlId;
+          switch (dataControlId.value.type) {
+            case 'TextNode':
+              controlId = b.string(dataControlId.value.chars);
+              break;
+            case 'MustacheStatement':
+              controlId = dataControlId.value.path;
+              break;
+            default:
+              break;
+          }
+          modifier.hash = b.hash([b.pair('controlTrackingId', controlId)]);
+        }
 
         node.modifiers = [modifier];
         node.attributes = attributes.filter(
@@ -51,7 +59,7 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
         );
 
         return node;
-      }
+      },
     };
   });
 };
