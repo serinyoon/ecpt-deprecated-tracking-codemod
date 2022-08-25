@@ -30,21 +30,21 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 **Input** (<small>[basic.input.hbs](transforms/data-control-name/__testfixtures__/basic.input.hbs)</small>):
 ```hbs
 <LinkTo
-	@route="index"
-	@model={{relatedArticle.permalink}}
-	class="reader-related-content__link"
-	data-control-name="read_related"
-	data-test-reader-related-content="true"
+	@route="foo.index"
+	@model={{some.link}}
+	class="some-link__link"
+	data-control-name="some-link-control-name"
+	data-some-link="true"
 >
 </LinkTo>
 
 <LinkTo
-	@route="index"
-	@model={{relatedArticle.permalink}}
-	class="reader-related-content__link"
-	data-control-name="read_related"
-	data-control-id="read_related-id"
-	data-test-reader-related-content="true"
+	@route="foo.index"
+	@model={{some.link}}
+	class="some-link__link"
+	data-control-name="some-link-control-name"
+	data-control-id="some-link-control-name-id"
+	data-some-link="true"
 >
 </LinkTo>
 
@@ -59,16 +59,16 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 **Output** (<small>[basic.output.hbs](transforms/data-control-name/__testfixtures__/basic.output.hbs)</small>):
 ```hbs
 <LinkTo
-	@route="index"
-	@model={{relatedArticle.permalink}}
-	class="reader-related-content__link" data-test-reader-related-content="true" {{ember-cli-pemberly-tracking$track-interaction "read_related"}}
+	@route="foo.index"
+	@model={{some.link}}
+	class="some-link__link" data-some-link="true" {{ember-cli-pemberly-tracking$track-interaction "some-link-control-name"}}
 >
 </LinkTo>
 
 <LinkTo
-	@route="index"
-	@model={{relatedArticle.permalink}}
-	class="reader-related-content__link" data-test-reader-related-content="true" {{ember-cli-pemberly-tracking$track-interaction "read_related" controlTrackingId="read_related-id"}}
+	@route="foo.index"
+	@model={{some.link}}
+	class="some-link__link" data-some-link="true" {{ember-cli-pemberly-tracking$track-interaction "some-link-control-name" controlTrackingId="some-link-control-name-id"}}
 >
 </LinkTo>
 
