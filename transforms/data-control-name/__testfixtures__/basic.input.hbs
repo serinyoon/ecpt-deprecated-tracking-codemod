@@ -1,0 +1,25 @@
+<LinkTo
+	@route="index"
+	@model={{relatedArticle.permalink}}
+	class="reader-related-content__link"
+	data-control-name="read_related"
+	data-test-reader-related-content="true"
+>
+</LinkTo>
+
+<LinkTo
+	@route="index"
+	@model={{relatedArticle.permalink}}
+	class="reader-related-content__link"
+	data-control-name="read_related"
+	data-control-id="read_related-id"
+	data-test-reader-related-content="true"
+>
+</LinkTo>
+
+<AppAwareLink$AppAwareLink
+	@href={{this.contentTrackedUrl}}
+	target="_blank"
+	data-control-name={{@controlName}}
+>
+</AppAwareLink$AppAwareLink>

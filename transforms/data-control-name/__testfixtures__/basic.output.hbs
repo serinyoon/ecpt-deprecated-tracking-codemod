@@ -1,0 +1,19 @@
+<LinkTo
+	@route="index"
+	@model={{relatedArticle.permalink}}
+	class="reader-related-content__link" data-test-reader-related-content="true" {{ember-cli-pemberly-tracking$track-interaction "read_related"}}
+>
+</LinkTo>
+
+<LinkTo
+	@route="index"
+	@model={{relatedArticle.permalink}}
+	class="reader-related-content__link" data-test-reader-related-content="true" {{ember-cli-pemberly-tracking$track-interaction "read_related" controlTrackingId="read_related-id"}}
+>
+</LinkTo>
+
+<AppAwareLink$AppAwareLink
+	@href={{this.contentTrackedUrl}}
+	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName}}
+>
+</AppAwareLink$AppAwareLink>

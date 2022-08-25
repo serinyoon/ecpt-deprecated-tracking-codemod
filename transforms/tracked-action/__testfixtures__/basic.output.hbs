@@ -1,0 +1,37 @@
+<ArtdecoButton$ArtdecoButton
+	@class="fr"
+	data-test-hiring-welcome-onboard__modal-get-started={{@userType}}
+	aria-label={{t "i18n_get_started"}}
+	@text={{t "i18n_get_started"}}
+	@click={{this.onModalDismiss}} {{ember-cli-pemberly-tracking$track-interaction "foo"}}
+/>
+
+<ArtdecoButton$ArtdecoButton
+	@class="fr"
+	data-test-hiring-welcome-onboard__modal-get-started={{@userType}}
+	aria-label={{t "i18n_get_started"}}
+	@text={{t "i18n_get_started"}}
+	@click={{this.onModalDismiss}} {{ember-cli-pemberly-tracking$track-interaction @controlName}}
+/>
+
+<ArtdecoButton$ArtdecoButton
+	@class="fr"
+	data-test-hiring-welcome-onboard__modal-get-started={{@userType}}
+	aria-label={{t "i18n_get_started"}}
+	@text={{t "i18n_get_started"}}
+	@click={{ember-cli-pemberly-tracking$tracked-action
+		(concat "hiring_welcome_onboard_modal_dismiss_" @userType)
+		this.onModalDismiss
+	}}
+/>
+
+<ArtdecoButton$ArtdecoButton
+	@class="fr"
+	data-test-hiring-welcome-onboard__modal-get-started={{@userType}}
+	aria-label={{t "i18n_get_started"}}
+	@text={{t "i18n_get_started"}}
+	@onPrimary={{ember-cli-pemberly-tracking$tracked-action
+		"foo"
+		this.onModalDismiss
+	}}
+/>
