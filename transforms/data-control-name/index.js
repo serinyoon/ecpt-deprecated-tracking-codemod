@@ -53,7 +53,8 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
           modifier.hash = b.hash([b.pair('controlTrackingId', controlId)]);
         }
 
-        node.modifiers = [modifier];
+        node.modifiers = [...node.modifiers, modifier];
+
         node.attributes = attributes.filter(
           (attr) => !(isDataControlName(attr.name) || isDataControlId(attr.name))
         );
