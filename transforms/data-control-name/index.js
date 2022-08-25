@@ -32,7 +32,7 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
           default:
             break;
         }
-        
+
         const modifier = b.elementModifier(
           b.path('ember-cli-pemberly-tracking$track-interaction'),
           [controlName]
