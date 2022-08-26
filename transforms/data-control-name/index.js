@@ -70,9 +70,8 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
         );
 
         if (isControlNameDynamic) {
-          debugger;
           const sexpr = b.sexpr(dataControlName.value.path, dataControlName.value.params);
-          const prog = b.blockItself([node], ['controlName']);
+          const prog = b.blockItself([b.text('\n'), node, b.text('\n')], ['controlName']);
           return b.block(b.path('let'), [sexpr], b.hash(), prog);
         }
 

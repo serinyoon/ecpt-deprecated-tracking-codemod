@@ -3,17 +3,23 @@
 >
 </div>
 
-{{#let (concat @prefix "foo") as |controlName|}}<div
+{{#let (concat @prefix "foo") as |controlName|}}
+<div
 	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
 >
-</div>{{/let}}
+</div>
+{{/let}}
 
-{{#let (concat @prefix (if "foo" "foo" "bar")) as |controlName|}}<div
+{{#let (concat @prefix (if "foo" "foo" "bar")) as |controlName|}}
+<div
 	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
 >
-</div>{{/let}}
+</div>
+{{/let}}
 
-{{#let (global-helpers$lowercase @foo) as |controlName|}}<div
+{{#let (global-helpers$lowercase @foo) as |controlName|}}
+<div
 	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
 >
-</div>{{/let}}
+</div>
+{{/let}}
