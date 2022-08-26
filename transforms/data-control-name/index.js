@@ -22,11 +22,21 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
         }
 
         let controlName;
+        let isControlNameDynamic = false;
         switch (dataControlName.value.type) {
           case 'TextNode':
             controlName = b.string(dataControlName.value.chars);
             break;
           case 'MustacheStatement':
+            if (dataControlName.value.path.original === 'if') {
+              const sexpr = b.sexpr(dataControlName.value.path, dataControlName.value.params);
+              controlName = sexpr;
+              break;
+            } else if (dataControlName.value.path.original && dataControlName.value.params.length) {
+              isControlNameDynamic = true;
+              controlName = b.path('controlName');
+              break;
+            }
             controlName = dataControlName.value.path;
             break;
           default:
@@ -58,6 +68,13 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
         node.attributes = attributes.filter(
           (attr) => !(isDataControlName(attr.name) || isDataControlId(attr.name))
         );
+
+        if (isControlNameDynamic) {
+          debugger;
+          const sexpr = b.sexpr(dataControlName.value.path, dataControlName.value.params);
+          const prog = b.blockItself([node], ['controlName']);
+          return b.block(b.path('let'), [sexpr], b.hash(), prog);
+        }
 
         return node;
       },
