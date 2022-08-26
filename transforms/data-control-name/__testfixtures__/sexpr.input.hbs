@@ -1,0 +1,27 @@
+<div
+	class="foo"
+	data-control-name={{if "foo" "foo" "bar"}}
+	data-foo
+>
+</div>
+
+<div
+	class="foo"
+	data-control-name={{concat @prefix "foo"}}
+	data-foo
+>
+</div>
+
+<div
+	class="foo"
+	data-control-name={{concat @prefix (if "foo" "foo" "bar")}}
+	data-foo
+>
+</div>
+
+<div
+	class="foo"
+	data-control-name={{global-helpers$lowercase @foo}}
+	data-foo
+>
+</div>

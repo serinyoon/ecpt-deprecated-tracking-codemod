@@ -1,0 +1,19 @@
+<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction (if "foo" "foo" "bar")}}
+>
+</div>
+
+{{#let (concat @prefix "foo") as |controlName|}}<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
+>
+</div>{{/let}}
+
+{{#let (concat @prefix (if "foo" "foo" "bar")) as |controlName|}}<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
+>
+</div>{{/let}}
+
+{{#let (global-helpers$lowercase @foo) as |controlName|}}<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
+>
+</div>{{/let}}
