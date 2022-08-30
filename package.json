@@ -1,6 +1,6 @@
 {
   "name": "ecpt-deprecated-tracking-codemod",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "scripts": {
     "lint": "eslint --cache .",
     "test": "codemod-cli test",

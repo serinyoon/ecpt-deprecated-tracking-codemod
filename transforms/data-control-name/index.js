@@ -77,6 +77,61 @@ module.exports = function ({ source /*, path*/ }, { parse, visit }) {
 
         return node;
       },
+      MustacheStatement(node) {
+        if (node.path.original !== 't') {
+          return node;
+        }
+
+        const linkInfo = node.hash.pairs.find((pair) => pair.key === 'linkInfo');
+        const pairs =
+          linkInfo &&
+          linkInfo.value &&
+          linkInfo.value.path.original === 'hash' &&
+          linkInfo.value.hash.pairs;
+        const dataControlName = pairs.find((pair) => isDataControlName(pair.key));
+        if (dataControlName) {
+          dataControlName.key = 'control-name';
+        }
+
+        return node;
+      },
+      BlockStatement(node) {
+        const dataControlName = node.hash.pairs.find((pair) => isDataControlName(pair.key));
+        const dataControlId = node.hash.pairs.find((pair) => isDataControlId(pair.key));
+        if (!dataControlName) {
+          return;
+        }
+
+        const controlName = dataControlName.value;
+        const modifier = b.elementModifier(
+          b.path('ember-cli-pemberly-tracking$track-interaction'),
+          [controlName]
+        );
+
+        if (dataControlId) {
+          modifier.hash = b.hash([b.pair('controlTrackingId', dataControlId.value)]);
+        }
+
+        const route = b.attr('@route', b.string(node.params[0].value));
+
+        const modelName = node.params[1] && node.params[1].original;
+        let model;
+        if (modelName) {
+          const decoratedModelName = modelName.startsWith('@') ? modelName : `@${modelName}`;
+          model = b.attr('@model', b.mustache(decoratedModelName));
+        }
+        const attrs = node.hash.pairs
+          .filter((pair) => !(isDataControlName(pair.key) || isDataControlId(pair.key)))
+          .map((pair) => b.attr(pair.key, pair.value));
+
+        const element = b.element('EmberEngines$LinkToExternal', {
+          attrs: [route, model, ...attrs].filter((attr) => !!attr),
+          modifiers: [modifier],
+          children: node.program.body,
+        });
+
+        return element;
+      },
     };
   });
 };

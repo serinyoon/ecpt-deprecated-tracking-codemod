@@ -21,7 +21,8 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 
 <!--FIXTURES_TOC_START-->
 * [basic](#basic)
-* [foo](#foo)
+* [disable](#disable)
+* [sexpr](#sexpr)
 <!--FIXTURES_TOC_END-->
 
 ## <!--FIXTURES_CONTENT_START-->
@@ -64,6 +65,51 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 	data-control-id={{@controlId}}
 >
 </AppAwareLink$AppAwareLink>
+
+<div
+	data-control-id={{@controlId}}
+	data-control-name={{@controlName}}
+	data-foo
+	{{on "click" (fn this.onFoo this.bar)}}
+>
+</div>
+
+{{t
+ "foo"
+ linkInfo=(hash
+   target="_blank"
+   href=this.helpLink
+   class="learn-more-link"
+   data-control-name="learn_more"
+ )
+}}
+
+{{#ember-engines$link-to-external
+ "foo.bar"
+ data-control-name="control-name"
+ data-control-id="control-id"
+ data-test-foo="true"
+}}
+	foo
+{{/ember-engines$link-to-external}}
+
+{{#ember-engines$link-to-external
+ "foo.bar"
+ foo
+ data-control-name="control-name"
+ data-control-id="control-id"
+ data-test-foo="true"
+}}
+{{/ember-engines$link-to-external}}
+
+{{#ember-engines$link-to-external
+ "foo.bar"
+ @foo
+ data-control-name="control-name"
+ data-control-id="control-id"
+ data-test-foo="true"
+}}
+{{/ember-engines$link-to-external}}
 ```
 
 **Output** (<small>[basic.output.hbs](transforms/data-control-name/__testfixtures__/basic.output.hbs)</small>):
@@ -93,17 +139,105 @@ node ./bin/cli.js data-control-name path/of/files/ or/some**/*glob.hbs
 	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId=@controlId}}
 >
 </AppAwareLink$AppAwareLink>
+
+<div
+	data-foo
+	{{on "click" (fn this.onFoo this.bar)}} {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId=@controlId}}
+>
+</div>
+
+{{t
+ "foo"
+ linkInfo=(hash
+   target="_blank"
+   href=this.helpLink
+   class="learn-more-link"
+   control-name="learn_more"
+ )
+}}
+
+<EmberEngines$LinkToExternal @route="foo.bar" data-test-foo="true" {{ember-cli-pemberly-tracking$track-interaction "control-name" controlTrackingId="control-id"}}>
+	foo
+</EmberEngines$LinkToExternal>
+
+<EmberEngines$LinkToExternal @route="foo.bar" @model={{@foo}} data-test-foo="true" {{ember-cli-pemberly-tracking$track-interaction "control-name" controlTrackingId="control-id"}}>
+</EmberEngines$LinkToExternal>
+
+<EmberEngines$LinkToExternal @route="foo.bar" @model={{@foo}} data-test-foo="true" {{ember-cli-pemberly-tracking$track-interaction "control-name" controlTrackingId="control-id"}}>
+</EmberEngines$LinkToExternal>
 ```
 ---
-<a id="foo">**foo**</a>
+<a id="disable">**disable**</a>
 
-**Input** (<small>[foo.input.hbs](transforms/data-control-name/__testfixtures__/foo.input.hbs)</small>):
+**Input** (<small>[disable.input.hbs](transforms/data-control-name/__testfixtures__/disable.input.hbs)</small>):
 ```hbs
 
 ```
 
-**Output** (<small>[foo.output.hbs](transforms/data-control-name/__testfixtures__/foo.output.hbs)</small>):
+**Output** (<small>[disable.output.hbs](transforms/data-control-name/__testfixtures__/disable.output.hbs)</small>):
 ```hbs
 
+```
+---
+<a id="sexpr">**sexpr**</a>
+
+**Input** (<small>[sexpr.input.hbs](transforms/data-control-name/__testfixtures__/sexpr.input.hbs)</small>):
+```hbs
+<div
+	class="foo"
+	data-control-name={{if "foo" "foo" "bar"}}
+	data-foo
+>
+</div>
+
+<div
+	class="foo"
+	data-control-name={{concat @prefix "foo"}}
+	data-foo
+>
+</div>
+
+<div
+	class="foo"
+	data-control-name={{concat @prefix (if "foo" "foo" "bar")}}
+	data-foo
+>
+</div>
+
+<div
+	class="foo"
+	data-control-name={{global-helpers$lowercase @foo}}
+	data-foo
+>
+</div>
+```
+
+**Output** (<small>[sexpr.output.hbs](transforms/data-control-name/__testfixtures__/sexpr.output.hbs)</small>):
+```hbs
+<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction (if "foo" "foo" "bar")}}
+>
+</div>
+
+{{#let (concat @prefix "foo") as |controlName|}}
+<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
+>
+</div>
+{{/let}}
+
+{{#let (concat @prefix (if "foo" "foo" "bar")) as |controlName|}}
+<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
+>
+</div>
+{{/let}}
+
+{{#let (global-helpers$lowercase @foo) as |controlName|}}
+<div
+	class="foo" data-foo {{ember-cli-pemberly-tracking$track-interaction controlName}}
+>
+</div>
+{{/let}}
 ```
 <!--FIXTURES_CONTENT_END-->
