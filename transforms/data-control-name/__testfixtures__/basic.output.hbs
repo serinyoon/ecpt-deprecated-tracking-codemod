@@ -14,38 +14,16 @@
 
 <AppAwareLink$AppAwareLink
 	@href={{this.contentTrackedUrl}}
-	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId="foo-id"}}
+	target="_blank"
+	data-control-name={{@controlName}}
+	data-control-id="foo-id"
 >
 </AppAwareLink$AppAwareLink>
 
 <AppAwareLink$AppAwareLink
 	@href={{this.contentTrackedUrl}}
-	target="_blank" {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId=@controlId}}
+	target="_blank"
+	data-control-name={{@controlName}}
+	data-control-id={{@controlId}}
 >
 </AppAwareLink$AppAwareLink>
-
-<div
-	data-foo
-	{{on "click" (fn this.onFoo this.bar)}} {{ember-cli-pemberly-tracking$track-interaction @controlName controlTrackingId=@controlId}}
->
-</div>
-
-{{t
- "foo"
- linkInfo=(hash
-   target="_blank"
-   href=this.helpLink
-   class="learn-more-link"
-   control-name="learn_more"
- )
-}}
-
-<EmberEngines$LinkToExternal @route="foo.bar" data-test-foo="true" {{ember-cli-pemberly-tracking$track-interaction "control-name" controlTrackingId="control-id"}}>
-	foo
-</EmberEngines$LinkToExternal>
-
-<EmberEngines$LinkToExternal @route="foo.bar" @model={{@foo}} data-test-foo="true" {{ember-cli-pemberly-tracking$track-interaction "control-name" controlTrackingId="control-id"}}>
-</EmberEngines$LinkToExternal>
-
-<EmberEngines$LinkToExternal @route="foo.bar" @model={{@foo}} data-test-foo="true" {{ember-cli-pemberly-tracking$track-interaction "control-name" controlTrackingId="control-id"}}>
-</EmberEngines$LinkToExternal>
